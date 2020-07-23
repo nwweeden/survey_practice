@@ -1,0 +1,30 @@
+<!-- # show form, with current question <question-number>
+    # choices as buttons
+    # answering , clicking on a button, should send POST request 
+
+
+{{ question_number }}
+-->
+
+{% extends 'base.html' %}
+
+{% block title %} Question {{ question_number }} {% endblock %}
+
+
+{% block content %}
+
+<div>
+    <form action='/questions/{{ question_number }}' method="POST">
+        <h2> Question {{ question_number }} </h2>
+        <label> {{ question }} </label>
+        {% for choice in choices %}
+            <input type="radio" name='{{choice}}' value='{{choice}}'> {{ choice }} </input>
+        {% endfor %}
+
+        <button type="submit">Next Question</button>
+    </form>
+</div>
+
+{% endblock %}
+
+<!-- might need to add clicklistener to base.html -->
