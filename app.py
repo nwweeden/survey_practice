@@ -17,3 +17,19 @@ def home():
     instructions = satisfaction_survey.instructions
 
     return render_template('home.html', title=title, instructions=instructions)
+
+
+@app.route('/questions/<question_number>')
+def questions_pages(question_number):
+    """ Generates a page for each question in our survey"""
+    question_number_as_number = int(question_number)
+    question = satisfaction_survey.questions[question_number_as_number].question
+    choices = satisfaction_survey.questions[question_number_as_number].choices
+
+    return render_template(
+        "questions.html",
+        question_number=question_number_as_number,
+        question=question,
+        choices=choices)
+
+# Clicking button -> POST request (change some thing in server, redirects) -> immediate getrequest to redirect url -> 
