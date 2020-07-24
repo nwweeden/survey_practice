@@ -14,11 +14,11 @@
 {% block content %}
 
 <div>
-    <form action='/questions/{{ question_number }}' method="POST">
+    <form action='/questions/{{ question_number }}' method="POST" >
         <h2> Question {{ question_number }} </h2>
         <label> {{ question }} </label>
         {% for choice in choices %}
-            <input type="radio" name='{{choice}}' value='{{choice}}'> {{ choice }} </input>
+            <input type="radio" name="option" value='{{choice}}'> {{ choice }} </input>
         {% endfor %}
 
         <button type="submit">Next Question</button>

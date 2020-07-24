@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import satisfaction_survey
 
@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = "secret"
 debug = DebugToolbarExtension(app)
 
 
-response = []
+responses = []
 
 
 @app.route('/')
@@ -32,4 +32,18 @@ def questions_pages(question_number):
         question=question,
         choices=choices)
 
-# Clicking button -> POST request (change some thing in server, redirects) -> immediate getrequest to redirect url -> 
+# Clicking button -> POST request (change some thing in server, redirects) -> immediate getrequest to redirect url ->
+
+@app.route('/questions/<question_number>', methods=['POST'])
+def handles_responses(question_number):
+    """ Takes in the user's choice and question number and stores answer in response"""
+    # print('Made it!')
+    # breakpoint()
+    answer = request.form["option"]
+    # breakpoint()
+    responses.append(answer)
+    # print(responses)
+
+    question_number = int(question_number) + 1
+
+    return redirect(f'/questions/{question_number}')
